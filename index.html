@@ -31,6 +31,7 @@
             display: -webkit-box;
             -webkit-box-pack: center;
             -webkit-box-align: center;
+            -webkit-backface-visibility:hidden;
         }
     </style>
 </head>
@@ -95,13 +96,16 @@
         this.idx = 0
     };
     Slide.prototype.render = function () {
+        var _this = this;
         var wrap = this.wrap;
         var data = this.list;
         var len = data.length;
         var scaleW = this.scaleW;
 
         this.outer = document.createElement('ul');
-        for (var i = 0; i < len; i++) {
+        var i = _this.idx - 1;
+        var m = _this.idx + 2;//var m = i+3;
+        for (i; i < m; i++) {
             var li = document.createElement('li');
             var item = data[i];
 
@@ -130,9 +134,7 @@
 
         var startHandler = function (evt) {
             _this.startX = evt.touches[0].pageX;
-
             _this.offsetX = 0;
-
             _this.startTime = new Date() * 1;//new Date 弱类型语言，*1可以得到想要的时间戳类型  Date.now()???
         };
         var moveHandler = function (evt) {
@@ -142,15 +144,13 @@
             var i = _this.idx - 1;
             var m = _this.idx + 2;//var m = i+3;
             for (i; i < m; i++) {
-                lis[i] && (lis[i].style.webkitTransform = 'translate3d(' + ((i - _this.idx) * scaleW + _this.offsetX) + 'px,0,0)')
-                lis[i] && (lis[i].style.webkitTransition = 'none')
+                lis[i] && (lis[i].style.webkitTransform = 'translate3d(' + ((i - _this.idx) * scaleW + _this.offsetX) + 'px,0,0)');
+                lis[i] && (lis[i].style.webkitTransition = 'none')//类似消除动画，清除再赋值
             }
-
         };
         var endHandler = function (evt) {
             var boundary = scaleW / 6;
             var endTime = new Date() * 1;
-            var lis = outer.getElementsByTagName('li');
             if (endTime - _this.startTime > 800) {
                 if (_this.offsetX >= boundary) {
                     //进入上一页

@@ -31,7 +31,7 @@
             display: -webkit-box;
             -webkit-box-pack: center;
             -webkit-box-align: center;
-            -webkit-backface-visibility:hidden;
+            -webkit-backface-visibility: hidden;
         }
     </style>
 </head>
@@ -102,7 +102,7 @@
         var scaleW = this.scaleW;
 
         this.outer = document.createElement('ul');
-        for (var i; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             var li = document.createElement('li');
             var item = data[i];
 
@@ -195,11 +195,11 @@
         this.idx = cidx;
 
         lis[cidx].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
-        lis[cidx-1] && (lis[cidx-1].style.webkitTransition = '-webkit-transform 0.2s ease-out');//-webkit-transform名称
-        lis[cidx+1] && (lis[cidx+1].style.webkitTransition = '-webkit-transform 0.2s ease-out');//-webkit-transform名称
+        lis[cidx - 1] && (lis[cidx - 1].style.webkitTransition = '-webkit-transform 0.2s ease-out');//-webkit-transform名称
+        lis[cidx + 1] && (lis[cidx + 1].style.webkitTransition = '-webkit-transform 0.2s ease-out');//-webkit-transform名称
         lis[cidx].style.webkitTransform = 'translate3d(0,0,0)';
-        lis[cidx-1] && (lis[cidx-1].style.webkitTransform = 'translate3d(-'+ scaleW +'px,0,0)');
-        lis[cidx+1] && (lis[cidx+1].style.webkitTransform = 'translate3d('+ scaleW +'px,0,0)');
+        lis[cidx - 1] && (lis[cidx - 1].style.webkitTransform = 'translate3d(-' + scaleW + 'px,0,0)');
+        lis[cidx + 1] && (lis[cidx + 1].style.webkitTransform = 'translate3d(' + scaleW + 'px,0,0)');
     };
     new Slide({
         'dom': document.getElementById('canvas'),

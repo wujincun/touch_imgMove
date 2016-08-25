@@ -96,16 +96,13 @@
         this.idx = 0
     };
     Slide.prototype.render = function () {
-        var _this = this;
         var wrap = this.wrap;
         var data = this.list;
         var len = data.length;
         var scaleW = this.scaleW;
 
         this.outer = document.createElement('ul');
-        var i = _this.idx - 1;
-        var m = _this.idx + 2;//var m = i+3;
-        for (i; i < m; i++) {
+        for (var i; i < len; i++) {
             var li = document.createElement('li');
             var item = data[i];
 

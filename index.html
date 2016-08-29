@@ -144,13 +144,29 @@
                 lis[i] && (lis[i].style.webkitTransform = 'translate3d(' + ((i - _this.idx) * scaleW + _this.offsetX) + 'px,0,0)');
                 lis[i] && (lis[i].style.webkitTransition = 'none')//类似消除动画，清除再赋值
             }*/
-            if(lis>=3){
-                for(var i=0;i<3;i++){
-                    lis[i] && (lis[i].style.webkitTransform = 'translate3d(' + (i * scaleW-scaleW + _this.offsetX) + 'px,0,0)');
+          /*  if(lis.length>=3) {
+                for (var i = 0; i < 3; i++) {
+                    lis[i] && (lis[i].style.webkitTransform = 'translate3d(' + (i * scaleW - scaleW + _this.offsetX) + 'px,0,0)');
+                    lis[i] && (lis[i].style.webkitTransition = 'none')//类似消除动画，清除再赋值
+                }
+            }*/
+            if(_this.idx == 0){
+                lis[0] && (lis[0].style.webkitTransform = 'translate3d(' + (_this.offsetX) + 'px,0,0)');
+                lis[1] && (lis[1].style.webkitTransform = 'translate3d(' + ( scaleW +_this.offsetX) + 'px,0,0)');
+                lis[0] && (lis[0].style.webkitTransition = 'none');//类似消除动画，清除再赋值
+                lis[1] && (lis[1].style.webkitTransition = 'none');//类似消除动画，清除再赋值
+                //lis[0] && (lis[0].style.webkitTransition = 'none')//类似消除动画，清除再赋值
+            }else if(_this.idx == len - 1){
+                lis[0] && (lis[0].style.webkitTransform = 'translate3d(' + (-scaleW+_this.offsetX) + 'px,0,0)');
+                lis[1] && (lis[1].style.webkitTransform = 'translate3d(' + ( _this.offsetX) + 'px,0,0)');
+                lis[0] && (lis[0].style.webkitTransition = 'none');//类似消除动画，清除再赋值
+                lis[1] && (lis[1].style.webkitTransition = 'none');//类似消除动画，清除再赋值
+            }else{
+                for (var i = 0; i < 3; i++) {
+                    lis[i] && (lis[i].style.webkitTransform = 'translate3d(' + (i * scaleW - scaleW + _this.offsetX) + 'px,0,0)');
                     lis[i] && (lis[i].style.webkitTransition = 'none')//类似消除动画，清除再赋值
                 }
             }
-
         };
         var endHandler = function () {
             var boundary = scaleW / 6;
@@ -161,25 +177,65 @@
             if (endTime - _this.startTime > 800) {
                 if (_this.offsetX >= boundary) {
                     //进入上一页
-                    _this.go('-1')
-
+                    _this.go('-1');
+                    item = data[_this.idx - 1];
+                    item && (_this.appendIn(item, '-1'));
+                    if((_this.idx != 1 && lis.length>=3)||(_this.idx == 6 && lis.length>=3)){
+                        outer.removeChild(lis[lis.length-1]);
+                    }
+                    if(_this.idx == 0){
+                        lis[0].style.webkitTransform =  'translate3d(0,0,0)';
+                        lis[1] && (lis[1].style.webkitTransform =  'translate3d(' + scaleW + 'px,0,0)');
+                    }else{
+                        _this.getPosition()
+                    }
                 } else if (_this.offsetX <= -boundary) {
                     //进入下一页
                     _this.go('+1');
                     item = data[_this.idx + 1];
-                    item && (_this.appendIn(item, '+1'), (lis.length>3 && outer.removeChild(lis[0])));
+                    item && (_this.appendIn(item, '+1'));
+                    if((_this.idx != 1 && lis.length>=3)||(_this.idx == 6 && lis.length>=3)){
+                        outer.removeChild(lis[0]);
+                    }
+                    if(_this.idx == data.length - 1){
+                        lis[0].style.webkitTransform = 'translate3d(-' + scaleW + 'px,0,0)';
+                        lis[1] && (lis[1].style.webkitTransform = 'translate3d(0,0,0)');
+                    }else{
+                        _this.getPosition()
+                    }
                 } else {
                     //留在本页
-                    _this.go('0')
+                    _this.go('0');
+                    _this.getPosition()
                 }
             } else {
                 //慢操作，优化
                 if (_this.offsetX > 50) {
-                    _this.go('-1')
+                    _this.go('-1');
+                    item = data[_this.idx - 1];
+                    item && (_this.appendIn(item, '-1'));
+                    if((_this.idx == 1 && lis.length>=3)||(_this.idx != 5 && lis.length>=3)){
+                        outer.removeChild(lis[lis.length-1]);
+                    }
+                    if(_this.idx == 0){
+                        lis[0].style.webkitTransform =  'translate3d(0,0,0)';
+                        lis[1] && (lis[1].style.webkitTransform =  'translate3d(' + scaleW + 'px,0,0)');
+                    }else{
+                        _this.getPosition()
+                    }
                 } else if (_this.offsetX < -50) {
-                    _this.go('+1')
+                    _this.go('+1');
                     item = data[_this.idx + 1];
-                    item && (_this.appendIn(item, '+1'), (lis.length>3 && outer.removeChild(lis[0])));
+                    item && (_this.appendIn(item, '+1'));
+                    if((_this.idx != 1 && lis.length>=3)||(_this.idx == 6 && lis.length>=3)){
+                        outer.removeChild(lis[0]);
+                    }
+                    if(_this.idx == data.length - 1){
+                        lis[0].style.webkitTransform = 'translate3d(-' + scaleW + 'px,0,0)';
+                        lis[1] && (lis[1].style.webkitTransform = 'translate3d(0,0,0)');
+                    }else{
+                        _this.getPosition()
+                    }
                 } else {
                     _this.go('0')
                 }
@@ -192,9 +248,6 @@
     Slide.prototype.go = function (n) {
         var idx = this.idx;
         var cidx;
-        var lis = this.outer.getElementsByTagName('li');
-        //var len = lis.length;
-        var scaleW = this.scaleW;
 
         if (typeof n == 'number') {
             cidx = n;
@@ -215,30 +268,36 @@
         lis[cidx].style.webkitTransform = 'translate3d(0,0,0)';
         lis[cidx - 1] && (lis[cidx - 1].style.webkitTransform = 'translate3d(-' + scaleW + 'px,0,0)');
         lis[cidx + 1] && (lis[cidx + 1].style.webkitTransform = 'translate3d(' + scaleW + 'px,0,0)');*/
-        for(var i=0;i<lis.length;i++){
-            lis[i].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
-            lis[i - 1] && (lis[i - 1].style.webkitTransition = '-webkit-transform 0.2s ease-out');//-webkit-transform名称
-            lis[i + 1] && (lis[i + 1].style.webkitTransition = '-webkit-transform 0.2s ease-out');//-webkit-transform名称
-            lis[i].style.webkitTransform = 'translate3d(0,0,0)';
-            lis[i - 1] && (lis[i - 1].style.webkitTransform = 'translate3d(-' + scaleW + 'px,0,0)');
-            lis[i + 1] && (lis[i + 1].style.webkitTransform = 'translate3d(' + scaleW + 'px,0,0)');
+    };
+    Slide.prototype.getPosition = function () {
+        var lis = this.outer.getElementsByTagName('li');
+        var len = lis.length;
+        var scaleW = this.scaleW;
+        for(var i=0;i<len;i++){
+                lis[i].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
         }
+        lis[0].style.webkitTransform = 'translate3d(-' + scaleW + 'px,0,0)';
+        lis[1] && (lis[1].style.webkitTransform = 'translate3d(0,0,0)');
+        lis[2] && (lis[2].style.webkitTransform = 'translate3d(' + scaleW + 'px,0,0)');
     };
     Slide.prototype.appendIn = function (item, n) {
         var scaleW = this.scaleW;
         var li = document.createElement('li');
+        var lis = document.getElementsByTagName('li');
         li.style.width = scaleW + 'px';
         if (item['height'] / item['width'] > this.radio) {
             li.innerHTML = '<img height="' + window.innerHeight + '" src="' + item['img'] + '">';
         } else {
             li.innerHTML = '<img width="' + window.innerWidth + '" src="' + item['img'] + '">';
         }
-        if (n * 1 > 0) {
+        if (n * 1 >= 0) {
             li.style.webkitTransform = 'translate3d(' + n * scaleW + 'px,0,0)';
+            this.outer.appendChild(li);
         } else if (n * 1 < 0) {
             li.style.webkitTransform = 'translate3d(-' + n * scaleW + 'px,0,0)';
+            this.outer.insertBefore(li,lis[0]);
         }
-        this.outer.appendChild(li);
+
     };
     new Slide({
         'dom': document.getElementById('canvas'),

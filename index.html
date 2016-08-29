@@ -180,12 +180,14 @@
                     _this.go('-1');
                     item = data[_this.idx - 1];
                     item && (_this.appendIn(item, '-1'));
-                    if((_this.idx != 1 && lis.length>=3)||(_this.idx == 6 && lis.length>=3)){
+                    if((_this.idx == 0 && lis.length>=3)||(_this.idx != 5 && lis.length>=3)){
                         outer.removeChild(lis[lis.length-1]);
                     }
                     if(_this.idx == 0){
                         lis[0].style.webkitTransform =  'translate3d(0,0,0)';
                         lis[1] && (lis[1].style.webkitTransform =  'translate3d(' + scaleW + 'px,0,0)');
+                        lis[0].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
+                        lis[1].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
                     }else{
                         _this.getPosition()
                     }
@@ -200,6 +202,8 @@
                     if(_this.idx == data.length - 1){
                         lis[0].style.webkitTransform = 'translate3d(-' + scaleW + 'px,0,0)';
                         lis[1] && (lis[1].style.webkitTransform = 'translate3d(0,0,0)');
+                        lis[0].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
+                        lis[1].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
                     }else{
                         _this.getPosition()
                     }
@@ -214,12 +218,14 @@
                     _this.go('-1');
                     item = data[_this.idx - 1];
                     item && (_this.appendIn(item, '-1'));
-                    if((_this.idx == 1 && lis.length>=3)||(_this.idx != 5 && lis.length>=3)){
+                    if((_this.idx == 0 && lis.length>=3)||(_this.idx != 5 && lis.length>=3)){
                         outer.removeChild(lis[lis.length-1]);
                     }
                     if(_this.idx == 0){
                         lis[0].style.webkitTransform =  'translate3d(0,0,0)';
                         lis[1] && (lis[1].style.webkitTransform =  'translate3d(' + scaleW + 'px,0,0)');
+                        lis[0].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
+                        lis[1].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
                     }else{
                         _this.getPosition()
                     }
@@ -233,11 +239,14 @@
                     if(_this.idx == data.length - 1){
                         lis[0].style.webkitTransform = 'translate3d(-' + scaleW + 'px,0,0)';
                         lis[1] && (lis[1].style.webkitTransform = 'translate3d(0,0,0)');
+                        lis[0].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
+                        lis[1].style.webkitTransition = '-webkit-transform 0.2s ease-out';//-webkit-transform名称
                     }else{
                         _this.getPosition()
                     }
                 } else {
-                    _this.go('0')
+                    _this.go('0');
+                    _this.getPosition()
                 }
             }
         };
